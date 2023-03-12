@@ -61,6 +61,11 @@ def print_request():
     request.custom_fullpath = (
         parsed.path.rstrip("/") + "/" + request.fullpath.lstrip("/")
     )
+    prepend = request.headers['X-Pypi-Mount']
+    if prepend is None:
+      prepend = parsed.path
+    prepend = prepend.rstrip("/")
+    request.custom_fullpath = (prepend + "/" + request.fullpath.lstrip("/"))
 
 
 @app.hook("after_request")
@@ -95,7 +100,7 @@ def root():
     msg = config.welcome_msg + "\n"
     return template(
         msg,
-        URL=request.url.rstrip("/") + "/",
+        URL=fp.rstrip("/") + "/",
         VERSION=__version__,
         NUMPKGS=config.backend.package_count(),
         PACKAGES=fp.rstrip("/") + "/packages/",
