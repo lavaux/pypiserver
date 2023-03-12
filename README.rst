@@ -17,7 +17,7 @@ pypiserver - minimal PyPI server for use with pip/easy_install
 :Maintainers: | Kostis Anagnostopoulos <ankostis@gmail.com>,
               | Matthew Planchard <mplanchard@gmail.com>,
               | Dmitrii Orlov <dmtree.dev@yahoo.com>,
-              | **Someone new?** We are looking for new maintainers! 
+              | **Someone new?** We are looking for new maintainers!
                 <https://github.com/pypiserver/pypiserver/issues/397>
 :License:     zlib/libpng + MIT
 :Community:   https://pypiserver.zulipchat.com
@@ -156,27 +156,27 @@ message *about starting the server*::
                           Listen on interface INTERFACE (default: 0.0.0.0)
     -a AUTHENTICATE, --authenticate AUTHENTICATE
                           Comma-separated list of (case-insensitive) actions to authenticate (options: download, list, update; default: update).
-                          
+
                           Any actions not specified are not authenticated, so to authenticate downloads and updates, but allow unauthenticated viewing of
                           the package list, you would use:
-                          
+
                             pypi-server -a 'download, update' -P ./my_passwords.htaccess
-                          
+
                           To disable authentication, use:
-                          
+
                             pypi-server -a . -P .
-                          
+
                           See the `-P` option for configuring users and passwords.
-                          
+
                           Note that when uploads are not protected, the `register` command is not necessary, but `~/.pypirc` still needs username and
                           password fields, even if bogus.
     -P PASSWORD_FILE, --passwords PASSWORD_FILE
                           Use an apache htpasswd file PASSWORD_FILE to set usernames and passwords for authentication.
-                          
+
                           To allow unauthorized access, use:
-                          
+
                             pypi-server -a . -P .
-                          
+
     --disable-fallback    Disable the default redirect to PyPI for packages not found in the local index.
     --fallback-url FALLBACK_URL
                           Redirect to FALLBACK_URL for packages not found in the local index.
@@ -447,7 +447,7 @@ options ``pypi-server update`` will just print a list of commands which must
 be run in order to get the latest version of each package. Output
 looks like::
 
-    $ ./pypi-server update 
+    $ ./pypi-server update
     checking 106 packages for newer version
 
     .........u.e...........e..u.............
@@ -794,6 +794,14 @@ want to host pypiserver under a particular path on your server::
           proxy_pass        http://pypi;
       }
     }
+
+Other proxy server
+~~~~~~~~~~~~~~~~~~
+
+
+Some proxy server are not allowing to override the value of X-Forwarded-Host. For this,
+an alternative option is to set the header X-Pypi-Mount to the full URL path where
+the server is mounted on.
 
 Supporting HTTPS
 ~~~~~~~~~~~~~~~~
